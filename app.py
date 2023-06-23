@@ -141,7 +141,7 @@ def process_prompt(challenge,client_request,req):
     return retval
 
 @app.route('/challenge1', methods=['GET'])
-@limiter.limit("20/hour") # maximum of 20 requests per minute
+@limiter.exempt
 def index1():
     for k, r in ip_ban.get_block_list().items():
         print(f"k={k}, remote_addr={request.remote_addr}")
@@ -160,7 +160,7 @@ def go1():
     return render_template('index.html', challenge=1, response=process_prompt(1,request,req), req=req)
 
 @app.route('/challenge2', methods=['GET'])
-@limiter.limit("20/hour") # maximum of 20 requests per minute
+@limiter.exempt
 def index2():
     for k, r in ip_ban.get_block_list().items():
         print(f"k={k}, remote_addr={request.remote_addr}")

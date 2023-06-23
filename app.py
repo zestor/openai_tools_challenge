@@ -2,6 +2,8 @@ from flask import Flask, render_template, jsonify, redirect, url_for, request, r
 from flask_ipban import IpBan
 from flask_dance.contrib.google import make_google_blueprint, google
 from flask_dance.consumer import oauth_authorized
+from flask_limiter import Limiter
+from flask_limiter.util import get_remote_address
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
 import openai
@@ -10,7 +12,7 @@ import json
 app = Flask(__name__)
 ip_ban = IpBan(ban_seconds=30, ban_count=1)
 ip_ban.init_app(app)
-
+limiter = Limiter(get_remote_address, app=app, default_limits=["20/hour"])
 app.config['SECRET_KEY'] = 'SD&F&D&Sd7HHAS'
 
 def read_file(challenge,filename):
@@ -139,6 +141,7 @@ def process_prompt(challenge,client_request,req):
     return retval
 
 @app.route('/challenge1', methods=['GET'])
+@limiter.limit("20/hour") # maximum of 20 requests per minute
 def index1():
     for k, r in ip_ban.get_block_list().items():
         print(f"k={k}, remote_addr={request.remote_addr}")
@@ -147,6 +150,7 @@ def index1():
     return render_template('index.html', challenge=1)
 
 @app.route('/challenge1', methods=['POST'])
+@limiter.limit("20/hour") # maximum of 20 requests per minute
 def go1():
     for k, r in ip_ban.get_block_list().items():
         print(f"k={k}, remote_addr={request.remote_addr}")
@@ -156,6 +160,7 @@ def go1():
     return render_template('index.html', challenge=1, response=process_prompt(1,request,req), req=req)
 
 @app.route('/challenge2', methods=['GET'])
+@limiter.limit("20/hour") # maximum of 20 requests per minute
 def index2():
     for k, r in ip_ban.get_block_list().items():
         print(f"k={k}, remote_addr={request.remote_addr}")
@@ -164,6 +169,7 @@ def index2():
     return render_template('index.html', challenge=2)
 
 @app.route('/challenge2', methods=['POST'])
+@limiter.limit("20/hour") # maximum of 20 requests per minute
 def go2():
     for k, r in ip_ban.get_block_list().items():
         print(f"k={k}, remote_addr={request.remote_addr}")

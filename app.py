@@ -127,13 +127,13 @@ def process_prompt(challenge,client_request,req):
             messages=messages,
         )  # get a new response from GPT where it can see the function response
         print(second_response)
-        retval += "\n\n=====================\nFINAL REPONSE TO USER:" + second_response["choices"][0]["message"]["content"]
+        retval += "\n\n=====================\nFINAL REPONSE TO USER:\n" + second_response["choices"][0]["message"]["content"]
     else:
         if challenge == 1:
             retval = "ACCESS DENIED"
         elif challenge == 2:
             retval += f"\n\n=====================\nRESPONSE:\nSeems like you are trying to do something other than read the files apples and oranges.\n{response_message}"
-            retval += "\n\n=====================\nFINAL REPONSE TO USER:" + response_message["content"]
+            retval += "\n\n=====================\nFINAL REPONSE TO USER:\n" + response_message["content"]
             #ip_ban.block(client_request.remote_addr, False)
 
     return retval

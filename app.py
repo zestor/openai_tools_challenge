@@ -140,6 +140,14 @@ def process_prompt(challenge,client_request,req):
 
     return retval
 
+
+def logResponse(response, ip_address):
+    current_datetime = datetime.datetime.now()
+    datetime_string = current_datetime.strftime("%Y-%m-%d_%H-%M-%S")
+    file_path = f"./logging/{datetime_string}-{ip_address}.txt"
+    with open(file_path, "w") as file:
+        file.write(response)
+
 @app.route('/challenge1', methods=['GET'])
 @limiter.exempt
 def index1():
@@ -157,7 +165,9 @@ def go1():
         if k == request.remote_addr:
             return render_template('index.html', challenge=1, banned=True)
     req = request.form['req']
-    return render_template('index.html', challenge=1, response=process_prompt(1,request,req), req=req)
+    resp = process_prompt(1,request,req)
+    logResponse(resp, request.remote_addr)
+    return render_template('index.html', challenge=1, response=resp, req=req)
 
 @app.route('/challenge2', methods=['GET'])
 @limiter.exempt
@@ -176,7 +186,9 @@ def go2():
         if k == request.remote_addr:
             return render_template('index.html', challenge=2, banned=True)
     req = request.form['req']
-    return render_template('index.html', challenge=2, response=process_prompt(2,request,req), req=req)
+    resp = process_prompt(2,request,req)
+    logResponse(resp, request.remote_addr)
+    return render_template('index.html', challenge=2, response=resp, req=req)
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=80, debug=True)

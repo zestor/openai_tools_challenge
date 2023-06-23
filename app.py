@@ -8,6 +8,7 @@ from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
 import openai
 import json
+import datetime
 
 app = Flask(__name__)
 ip_ban = IpBan(ban_seconds=30, ban_count=1)

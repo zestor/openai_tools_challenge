@@ -6,11 +6,15 @@ from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
+from werkzeug.middleware.proxy_fix import ProxyFix
 import openai
 import json
 import datetime
 
 app = Flask(__name__)
+app.wsgi_app = ProxyFix(
+    app.wsgi_app, x_for=1, x_proto=1, x_host=1, x_prefix=1
+)
 ip_ban = IpBan(ban_seconds=30, ban_count=1)
 ip_ban.init_app(app)
 limiter = Limiter(get_remote_address, app=app, default_limits=["20/hour"])

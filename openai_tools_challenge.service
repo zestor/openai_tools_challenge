@@ -3,11 +3,11 @@ Description=Gunicorn instance to serve myproject
 After=network.target
 
 [Service]
-User=bitnami
-Group=bitnami-admins
-WorkingDirectory=/home/bitnami/openai_tools_challenge
-Environment="PATH=/home/bitnami/openai_tools_challenge/openai_tools_challenge/bin"
-ExecStart=/home/bitnami/openai_tools_challenge/openai_tools_challenge/bin/gunicorn wsgi:app --error-logfile gunicorn_error.log  -b 0.0.0.0:80 -e OPENAI_API_KEY=sk-tBf0wDJ>
+User=ec2-user
+Group=adm
+WorkingDirectory=/home/ec2-user/openai_tools_challenge
+Environment="PATH=/home/ec2-user/openai_tools_challenge/virtual_env/bin"
+ExecStart=/home/ec2-user/openai_tools_challenge/virtual_env/bin/gunicorn wsgi:app --error-logfile gunicorn_error.log  -b 0.0.0.0:80 -e OPENAI_API_KEY=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
 
 [Install]
 WantedBy=multi-user.target

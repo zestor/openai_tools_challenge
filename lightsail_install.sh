@@ -9,6 +9,7 @@ source virtual_env/bin/activate
 pip install -r requirements.txt
 deactivate
 sudo cp openai_tools_challenge.service /etc/systemd/system/openai_tools_challenge.service
+sudo systemctl daemon-reload
 sudo systemctl start openai_tools_challenge
 sudo systemctl enable openai_tools_challenge
 sudo systemctl status openai_tools_challenge

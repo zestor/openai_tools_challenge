@@ -1,0 +1,5 @@
+sudo systemctl stop openai_tools_challenge
+sudo systemctl daemon-reload
+sudo systemctl start openai_tools_challenge
+sudo systemctl enable openai_tools_challenge
+sudo systemctl status openai_tools_challenge

@@ -1,3 +1,4 @@
+# Assumes AWS Lightsail instance OS Only Amazon Linux 2023
 sudo python3 -m ensurepip --upgrade
 sudo python3 -m pip install --upgrade pip
 sudo dnf install git-all -y

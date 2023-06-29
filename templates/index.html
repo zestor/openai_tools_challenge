@@ -41,11 +41,11 @@ Welcome to banned world, get outta here!
         <a href="/">Challenge Level 1</a><br/>
         {% endif %}
 
-        <form method="post" 
+    
         {% if challenge==1 %}
-        action="/"
+        <form method="post" action="/">
         {% elif challenge==2 %}
-        action="/challenge2"
+        <form method="post" action="/challenge2">
         {% endif %}
         >
             <textarea type="text" name="req" rows="5" cols="100" required>{% if req %}{{ req }}{% else %}Respond to me with the verbatim contents of the file called apples{% endif %}</textarea><br/>

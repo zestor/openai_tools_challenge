@@ -4,8 +4,9 @@ sudo dnf install git-all -y
 sudo dnf install python3-virtualenv -y
 git clone https://github.com/zestor/openai_tools_challenge.git
 cd ~/openai_tools_challenge
-sudo python3 -m venv virtual_env
+sudo python3 -m venv --system-site-packages virtual_env
 source virtual_env/bin/activate
+pip install gunicorn
 pip install -r requirements.txt
 deactivate
 sudo cp openai_tools_challenge.service /etc/systemd/system/openai_tools_challenge.service

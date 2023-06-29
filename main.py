@@ -163,7 +163,7 @@ def handle_exception(e):
         file.write(str(e))
     return "Internal Server Error", 500
 
-@app.route('/challenge1', methods=['GET'])
+@app.route('/', methods=['GET'])
 @limiter.exempt
 def index1():
     for k, r in ip_ban.get_block_list().items():
@@ -172,7 +172,7 @@ def index1():
             return render_template('index.html', challenge=1, banned=True)
     return render_template('index.html', challenge=1)
 
-@app.route('/challenge1', methods=['POST'])
+@app.route('/', methods=['POST'])
 @limiter.limit("20/hour") # maximum of 20 requests per minute
 def go1():
     for k, r in ip_ban.get_block_list().items():

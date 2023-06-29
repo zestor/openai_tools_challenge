@@ -7,7 +7,7 @@ User=ec2-user
 Group=adm
 WorkingDirectory=/home/ec2-user/openai_tools_challenge
 Environment="PATH=/home/ec2-user/openai_tools_challenge/virtual_env/bin"
-ExecStart=gunicorn wsgi:app -b 0.0.0.0:80 -e OPENAI_API_KEY=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
+ExecStart=gunicorn wsgi:app -b 0.0.0.0:5000 -e OPENAI_API_KEY=<YOUR_API_KEY>>
 
 [Install]
 WantedBy=multi-user.target

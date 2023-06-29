@@ -181,7 +181,7 @@ def go1():
             return render_template('index.html', challenge=1, banned=True)
     req = request.form['req']
     resp = process_prompt(1,request,req)
-    logResponse(resp, request.remote_addr)
+    #logResponse(resp, request.remote_addr)
     return render_template('index.html', challenge=1, response=resp, req=req)
 
 @app.route('/challenge2', methods=['GET'])
@@ -202,7 +202,7 @@ def go2():
             return render_template('index.html', challenge=2, banned=True)
     req = request.form['req']
     resp = process_prompt(2,request,req)
-    logResponse(resp, request.remote_addr)
+    #logResponse(resp, request.remote_addr)
     return render_template('index.html', challenge=2, response=resp, req=req)
 
 if __name__ == '__main__':

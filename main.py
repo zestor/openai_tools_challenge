@@ -154,14 +154,14 @@ def logResponse(response, ip_address):
         file.write(response)
 
 
-@app.errorhandler(Exception)
-def handle_exception(e):
-    current_datetime = datetime.datetime.now()
-    datetime_string = current_datetime.strftime("%Y-%m-%d_%H-%M-%S")
-    file_path = f"./logging/{datetime_string}-ERROR.txt"
-    with open(file_path, "w") as file:
-        file.write(str(e))
-    return "Internal Server Error", 500
+#@app.errorhandler(Exception)
+#def handle_exception(e):
+#    current_datetime = datetime.datetime.now()
+#    datetime_string = current_datetime.strftime("%Y-%m-%d_%H-%M-%S")
+#    file_path = f"./logging/{datetime_string}-ERROR.txt"
+#    with open(file_path, "w") as file:
+#        file.write(str(e))
+#    return "Internal Server Error", 500
 
 @app.route('/', methods=['GET'])
 @limiter.exempt
